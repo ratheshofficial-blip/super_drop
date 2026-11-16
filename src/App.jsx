@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { creatorFromProfile, formatRupees, getSaved, initialCreator, initialSupporters, save, supporterFromRecord } from './data'
-import { supabase } from './supabase'
+import { supabase, supabaseConfigError } from './supabase'
 
 const requestTypes = ['Shoutout', 'Question', 'Song request']
 const presets = [49, 99, 199, 499]
@@ -689,6 +689,9 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme
   }, [theme])
+  useEffect(() => {
+    if (supabaseConfigError) setNotice(supabaseConfigError)
+  }, [])
   useEffect(() => {
     if (!supabase) return undefined
     supabase.auth.getSession().then(({ data, error }) => {

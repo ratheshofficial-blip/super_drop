@@ -27,6 +27,8 @@ demonstrations, not authentication or production controls.
 3. Configure **Authentication → Providers** for email OTP and, if desired,
    Google OAuth. Add your local and production app URLs to the allowed redirect
    URLs.
+   Review [email sending limits](./EMAIL_SENDING_LIMITS.md) before testing
+   sign-in or enabling email OTP for public users.
 4. Copy `.env.example` to `.env.local` and set the project URL and **anon /
    publishable key**. Never put the service-role key in the browser app.
 5. Install and log in to the [Supabase CLI](https://supabase.com/docs/guides/cli),
@@ -71,11 +73,14 @@ npm run build
 npm run preview
 ```
 
-Deploy to Vercel, Netlify, or another static host with build command
-`npm run build`, output directory `dist`, and the two `VITE_SUPABASE_*`
-environment variables. Configure a history fallback to `index.html` for
-username paths and the dashboard, admin, overlay and policy routes. Add the
-production URL to Supabase Auth's allowed redirect URLs.
+Deploy to Vercel with the included `vercel.json`; it sets the Vite build,
+`dist` output, and SPA route fallback. Add the two `VITE_SUPABASE_*`
+environment variables in **Vercel → Project → Settings → Environment
+Variables**, then redeploy so they are available at build time. For Netlify or
+another static host, use build command `npm run build`, output directory
+`dist`, and configure a history fallback to `index.html` for username paths,
+the dashboard, admin, overlay and policy routes. Add the production URL to
+Supabase Auth's allowed redirect URLs.
 
 ## Payment and payout scope
 
